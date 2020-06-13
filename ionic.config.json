@@ -1,0 +1,7 @@
+{
+  "name": "comercio-da-cidade",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
