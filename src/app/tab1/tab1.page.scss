@@ -1,0 +1,28 @@
+.topo{
+    width: 100%;
+    position:fixed;
+    top: 0;
+    color:black;
+    background-color: #a6ce39ff;
+    background-size: contain;
+    z-index: 2;
+    ion-searchbar{
+        --icon-color: #800;
+        --placeholder-color: #800;	
+        --placeholder-font-style:  ;
+        --border-radius: 10px;
+    }
+}
+.categorias{
+    margin-top: 24%;
+    ion-slides{
+        //border-bottom: medium solid rgb(207, 192, 191) ;
+        margin-bottom: 8px;
+    }
+}
+.titulo2{
+    margin-top: 16%;
+    margin-left: 14px;
+    color:#8c0043ff;
+    z-index: 2;
+}

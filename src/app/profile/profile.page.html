@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar class="tool-header">
+    <ion-buttons>
+      <ion-button slot="start" href="tabs/tab1">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-title *ngIf="usuario; else titleTemplate">{{ usuario.nome }}</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ng-template #titleTemplate>
+  <ion-title>
+    <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+  </ion-title>
+</ng-template>
+
+<ion-content>
+  <div class="container">
+
+    <div *ngIf="usuario && !edit">
+      <div class="image-content">
+        <img class="imagem-usuario" [src]="profileImage" alt="">
+      </div>
+      <ion-button slot="start" class="edit-button" (click)="editarPerfil()">
+        Editar perfil
+        <ion-icon slot="end" name="build">
+        </ion-icon>
+      </ion-button>
+      <ul class="informacoes">
+        <li class="label">Nome</li>
+        <li class="label2 pad-l">{{ usuario.nome }}</li>
+        <li class="label">E-mail</li>
+        <li class="label2 pad-l">{{ usuario.email }}</li>
+        <li class="label">CPF</li>
+        <li class="label2 pad-l">{{ usuario.cpf }}</li>
+        <li class="label">Meus estabelecimentos</li>
+
+      </ul>
+      <ion-list>
+        <ion-item slot="start" class="label2" (click)="gerenciarEstabelecimento(estabelecimento.id)"
+          *ngFor="let estabelecimento of usuario.estabelecimentos">
+          {{ estabelecimento.nome }}
+          <ion-icon slot="end" name="create"></ion-icon>
+        </ion-item>
+
+        <ion-item slot="start" class="label2 add">
+          Novo estabelecimento
+          <ion-icon slot="end" name="add"></ion-icon>
+        </ion-item>
+      </ion-list>
+      <br>
+      <ion-button class="delete-account" color="danger" large (click)="sair()">Sair</ion-button>
+
+    </div>
+
+
+    <!-- template de edição -->
+    <div *ngIf="usuario && edit">
+      <div class="image-content">
+        <img class="imagem-usuario" [src]="profileImage" alt="">
+      </div>
+      <div class="buttons">
+        <ion-button class="midia-button">
+          <ion-icon class="icon-button" name="images"></ion-icon>
+        </ion-button>
+        <ion-button class="midia-button mg-l" (click)="getCameraPicture()">
+          <ion-icon class="icon-button font-s" name="camera"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ul class="informacoes">
+        <li class="label">Nome</li>
+        <li class="label2 pad-l">
+          <ion-input [(ngModel)]="usuario.nome" autofocus></ion-input>
+        </li>
+        <li class="label">E-mail</li>
+        <li class="label2 pad-l">
+          <ion-input [(ngModel)]="usuario.email" inputmode="email" autofocus></ion-input>
+        </li>
+
+      </ul>
+      <hr>
+      <ion-button color="secondary" (click)="confirmarEdicao()">Salvar</ion-button>
+      <ion-button color="danger" (click)="cancelarEdicao()">Cancelar</ion-button>
+
+    </div>
+
+    <!-- template de loading -->
+    <div *ngIf="!usuario">
+      <div class="image-content">
+        <img class="imagem-usuario" src="/assets/img/sem_foto.png" alt="">
+      </div>
+      <ul class="informacoes">
+        <li class="label">Nome</li>
+        <li class="pad-l">
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+        <li class="label">E-mail</li>
+        <li class="pad-l">
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+        <li class="label">CPF</li>
+        <li class="pad-l">
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</ion-content>

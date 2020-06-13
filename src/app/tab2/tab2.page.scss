@@ -1,0 +1,45 @@
+ion-slides{
+    height: 100%;
+}
+.formulario2{
+    position: absolute;
+    top: 10%; left: 0; right: 0;
+    width: 85%;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: #e2e0eb;
+    padding-top: 20px;
+    ion-label{ 
+        font-size: large;
+        color: black;
+    }   
+    ion-item{
+        --background:rgba(255, 255, 255, 0.5);
+        --border-radius:10px; 
+        margin-top: 5px;
+        font-size: large;
+        margin-left: 10px;
+        margin-right: 10px;
+         
+    }
+
+    ion-button{
+        margin-top: 5px;
+        font-size: large;
+        margin-left: 10px;
+        margin-right: 10px;  
+    }
+    &.altura1{height: 40%; }
+    &.altura2{height: 60%; }    
+}
+.rodape{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    color: white; text-align: center;
+    background-image: url('/assets/img/background-botton-comercio-da-cidade.png');
+    background-size: contain;
+    padding-top: 10px;
+}

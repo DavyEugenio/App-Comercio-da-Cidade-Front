@@ -1,17 +1,54 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title color="primary" class="ion-text-center">Login & Cadastro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="login">
+      <ion-label>Login</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="cadastro">
+      <ion-label>Cadastro</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-slides>
+    <ion-slide>
+      <div class="formulario2 altura1 ion-text-center">
+        <span>Login</span>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input [(ngModel)]="creds.email" type="email" placeholder="E-mail"></ion-input>
+        </ion-item>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input [(ngModel)]="creds.senha" type="password" placeholder="Senha"></ion-input>
+        </ion-item>
+        <ion-button class="ion-margin-top" expand="block" (click)="login()">Entrar</ion-button>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="formulario2 altura2 ion-text-center">
+        <span>Cadastro</span>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="text" placeholder="Nome"></ion-input>
+        </ion-item>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="text" placeholder="CPF"></ion-input>
+        </ion-item>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="email" placeholder="E-mail"></ion-input>
+        </ion-item>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="password" placeholder="Senha"></ion-input>
+        </ion-item>
+        <ion-button class="ion-margin-top" expand="block">Entrar</ion-button>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <div class="rodape">
+
+
+  </div>
 </ion-content>

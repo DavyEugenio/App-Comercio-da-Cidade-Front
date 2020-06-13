@@ -1,0 +1,20 @@
+<ion-content>
+   
+    <div class="logo">
+
+    </div>
+    
+    <div class="formulario1 ion-text-center">
+      <ion-label>Escolha a Cidade</ion-label>   
+      <ion-select expand="block"  [(ngModel)]="cidadeSelecionada" value="cidadeSelecionada" okText="Confirmar" cancelText="Cancelar">
+        <ion-select-option *ngFor="let cidade of cidades" [value]="cidade.id">{{ cidade.nome }}</ion-select-option>
+      </ion-select>
+      <ion-button (click)="setCidade()" expand="block">Entrar</ion-button>
+   
+      
+    </div>
+
+    <div class="rodape">    
+    </div>
+
+</ion-content>

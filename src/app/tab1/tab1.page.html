@@ -1,17 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content color="white">
+  <div class="topo">
+     <a class="titulo2" [routerLink]="['/home']" (click)="nullCidade()" >{{ cidade.nome }}<ion-icon name="location-sharp"></ion-icon></a>
+     <ion-searchbar placeholder="Comércio da Cidade" autocomplete="on"></ion-searchbar>
+  </div>
+  <div class="categorias">
+  <span class="titulo2">Categorias</span>
+  <ion-slides [options]="sliderOpts">
+    <ion-slide *ngFor="let categoria of categorias">
+      <img [src]="categoria?.imageUrl">
+    </ion-slide>
+  </ion-slides>
+</div>
+  <span class="titulo2">Estabelecimentos</span>
+  <ion-list>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-item *ngFor="let estabelecimento of estabelecimentos" (click)="detalheEstabelecimento(estabelecimento.id)">
+      <ion-thumbnail slot="start">
+        <img [src]="estabelecimento?.imageUrl">
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h2>{{ estabelecimento.nome }}</h2>
+        </ion-text>
+        <p>TEL: {{ estabelecimento.telefone1 }}</p>
+        <ion-text color="secondary">
+          <p>Funcionamento seg a sex das {{ estabelecimento.horario }}.</p>
+        </ion-text>
+      </ion-label>
+    </ion-item>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  </ion-list>  
 </ion-content>
