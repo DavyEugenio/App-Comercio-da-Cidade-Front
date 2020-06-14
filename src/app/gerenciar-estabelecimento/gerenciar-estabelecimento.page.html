@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-toolbar class="tool-header">
     <ion-buttons>
-      <ion-button slot="start" href="./tabs/tab1">
+      <ion-button slot="start" href="../profile">
       	<ion-icon name="arrow-back"></ion-icon>
       </ion-button>
       <ion-title *ngIf="estabelecimento; else titleTemplate">{{ estabelecimento.nome }}</ion-title>
@@ -17,12 +17,12 @@
 </ng-template>
 
 <ion-content>
-	<ng-container *ngIf="estabelecimento; else loading">
+	<div *ngIf="estabelecimento && !edit">
 		<div class="container">
 			<div>
 				<img class="imagem-estabelecimento" [src]="estabelecimento?.imageUrl">
 			</div>
-
+			
 			<ul class="informacoes">
 				<li class="label">Funcionamento</li>
 				<li class="label2">
@@ -45,6 +45,8 @@
 
 				<li class="label">Telefones para contato</li>
 				<li class="label2" *ngFor="let tel of estabelecimento.telefones">{{ tel }}</li>
+				<li class="label">Site</li>
+				<li class="label2">{{ estabelecimento.site }}</li>
 				<li class="label">Instagram</li>
 				<li class="label2">{{ estabelecimento.instagram }}</li>
 				<li class="label">Facebook</li>
@@ -57,13 +59,69 @@
 					  <img [src]="categoria?.imageUrl">
 					</ion-slide>
 				  </ion-slides>
-		</div>
-
+				  
+			</div>
+			<ion-button class="botao-util" color="secondary">
+				Novo Produto
+				<ion-icon slot="end" name="add"></ion-icon>
+			</ion-button>
+			<ion-button class="botao-util" color="primary" (click)="editar()" large>Editar</ion-button>
+			<ion-button class="botao-util" color="danger" lrge>Deletar</ion-button>
+			<br>
+		
 		</div>
 		
-	</ng-container>
+	</div>
 
-	<ng-template #loading>
+	<!-- div de edição -->
+	<div *ngIf="estabelecimento && edit">
+		<div class="container">
+			<div>
+				<img class="imagem-estabelecimento" [src]="estabelecimento?.imageUrl">
+			</div>
+		
+			<div class="image-buttons">
+        
+        <ion-button class="midia-button">
+          <ion-icon class="icon-button font-s" name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="midia-button mg-l">
+          <ion-icon class="icon-button font-s" name="camera"></ion-icon>
+        </ion-button>
+      </div>
+      <ul class="informacoes">
+      	<li class="label">Nome</li>
+      	<li class="label2">
+      		<ion-input [(ngModel)]="estabelecimento.nome" inputmode="text" autofocus></ion-input>
+      	</li>
+				<li class="label">Funcionamento</li>
+				<li class="label2">
+					<ion-input [(ngModel)]="estabelecimento.horario" inputmode="text" autofocus></ion-input>
+				</li>
+					
+				<li class="label">Endereço</li>
+				<li class="label">Telefones</li>
+				<li class="label">Site</li>
+				<li class="label2">
+					<ion-input [(ngModel)]="estabelecimento.site" inputmode="text"></ion-input>
+				</li>
+				<li class="label">Instagram</li>
+				<li class="label2">
+					<ion-input [(ngModel)]="estabelecimento.instagram" inputmode="text"></ion-input>
+				</li>
+				<li class="label">Facebook</li>
+				<li class="label2">
+					<ion-input [(ngModel)]="estabelecimento.facebook" inputmode="text"></ion-input>
+				</li>
+			</ul>
+			<br>
+			<ion-button color="secondary" (click)="confirmarEdicao()">Salvar</ion-button>
+      <ion-button color="danger" (click)="cancelarEdicao()">Cancelar</ion-button>
+		</div>
+
+	</div>
+
+	<div *ngIf="!estabelecimento">
 		<div class="container">
 
 			<div>
@@ -84,6 +142,10 @@
 				<li>
 					<ion-skeleton-text animated class="loading-small"></ion-skeleton-text>
 				</li>
+				<li class="label">Site</li>
+				<li>
+					<ion-skeleton-text animated class="loading-small"></ion-skeleton-text>
+				</li>
 				<li class="label">Instagram</li>
 				<li>
 					<ion-skeleton-text animated class="loading-medium"></ion-skeleton-text>
@@ -92,11 +154,11 @@
 				<li>
 					<ion-skeleton-text animated class="loading-medium"></ion-skeleton-text>
 				</li>
-				
+				<li><span class="label">Produtos</span></li>
 			</ul>
-			
+			<br>
 		</div>
-	</ng-template>
+	</div>
 
 </ion-content>
 

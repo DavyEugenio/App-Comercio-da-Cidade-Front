@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./detalhe-estabelecimento/detalhe-estabelecimento.module').then( m => m.DetalheEstabelecimentoPageModule)
   },
   {
+    path: 'gerenciar-estabelecimento',
+    loadChildren: () => import('./gerenciar-estabelecimento/gerenciar-estabelecimento.module').then( m => m.GerenciarEstabelecimentoPageModule)
+  },
+  {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   }

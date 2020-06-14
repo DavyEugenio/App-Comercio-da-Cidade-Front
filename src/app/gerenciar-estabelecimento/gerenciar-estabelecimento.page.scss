@@ -23,7 +23,26 @@
 	margin-bottom: 5px;
 }
 
+.image-buttons{
+	width: 200px;
+	height: inherit;
+	margin-left: 12.4%;
 
+}
+
+.midia-button{
+	--background: #fff;
+	--border-style: none;
+	--box-shadow: none; 
+	width: 60px;
+	height: 60px;
+	--border-radius: 30px;
+	--color: #212020;
+}
+
+.icon-button{
+	font-size: 22px;
+}
 .estabelecimento-nome{
 	font-size: 30px;
 	color: #8c0043ff;
@@ -43,9 +62,9 @@
 	
 	width: 100%;
 	height: inherit;
-	background-color: white;
+	background-color: #white;
 	color: black;
-	font-size: 22px;
+	font-size: 18px;
 	margin-top: 10px;
 	
 }
@@ -55,7 +74,7 @@
 	height: inherit;
 	background-color: white;
 	color: #8c0043ff;
-	font-size: 21px;
+	font-size: 18px;
 
 }
 
@@ -75,6 +94,9 @@
     }
 }
 
+.botao-util{
+	width: 100%;
+}
 
 
 /* loadings das informacoes */
@@ -95,4 +117,13 @@
 .loading-small{
 	@extend .loading;
 	width: 48%;
+}
+
+ion-input{
+	--padding-top: 0px;
+	--padding-bottom: 0px;
+}
+
+.mg-l{
+	margin-left: 74px;
 }

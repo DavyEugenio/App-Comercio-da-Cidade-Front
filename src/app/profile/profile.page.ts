@@ -54,6 +54,12 @@ export class ProfilePage implements OnInit {
 
   gerenciarEstabelecimento(id: number) {
     console.log("id=" + id);
+    let dados: NavigationExtras = {
+      state: {
+        estabelecimentoID: id
+      }
+    };
+    this.router.navigate(['gerenciar-estabelecimento'], dados);
 
   }
 

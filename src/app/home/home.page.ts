@@ -24,13 +24,9 @@ export class HomePage implements OnInit {
     let localCidade = this.storage.getLocalCidade();
     
     if (localCidade == null) {
-      this.cidadeService.findAll().subscribe(
-        response => {
-          console.log(response);
-          this.cidades = response;
-          this.cidadeSelecionada = "1";
-        }
-      );
+      this.cidades = this.cidadeService.findAll();
+      this.cidadeSelecionada = 1;
+      console.log(this.cidades);
 
     }
     else {
