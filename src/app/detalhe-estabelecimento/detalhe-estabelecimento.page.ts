@@ -2,7 +2,7 @@ import { ProdutoService } from 'src/app/services/domain/produtoServico.service';
 import { ProdutoServicoDTO } from 'src/app/models/produtoServico.dto';
 import { API_CONFIG } from 'src/app/config/api.config';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { EstabelecimentoService } from 'src/app/services/domain/estabelecimento.service';
 import { EstabelecimentoDTO } from 'src/app/models/estabelecimento.dto';
 
@@ -31,7 +31,7 @@ export class DetalheEstabelecimentoPage implements OnInit {
       let getNav = this.router.getCurrentNavigation();
       if (getNav.extras.state) {
         let a = getNav.extras.state.estabelecimentoID;
-        this.estabelecimentoService.findById(getNav.extras.state.estabelecimentoID)
+        this.estabelecimentoService.findById(a)
           .subscribe(
             response => {
               this.estabelecimento = response;
@@ -72,14 +72,25 @@ export class DetalheEstabelecimentoPage implements OnInit {
   getImageOfProdutoServicoIfExists() {
     for (let i = 0; i < this.produtoServicos.length; i++) {
       let ps = this.produtoServicos[i];
-      this.estabelecimentoService.getImageFromServer(ps.id)
+      this.produtoServicoService.getImageFromServer(ps.id)
         .subscribe(response => {
           ps.imageUrl = `${API_CONFIG.baseUrl}/imagens/pro${ps.id}.jpg`;
         },
           error => {
-            ps.imageUrl = '/assets/img/imagem.jpg';
+            ps.imageUrl = '/assets/img/sem_foto.png';
           }
         );
+
     }
+  }
+
+  detalheProduto(id: number) {
+    let dados: NavigationExtras = {
+      state: {
+        produtoID: id,
+        estabelecimentoID: this.estabelecimento.id
+      }
+    };
+    this.router.navigate(['tabs/detalhe-produto-servico'], dados);
   }
 }

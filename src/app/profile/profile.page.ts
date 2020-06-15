@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/domain/usuario.service';
@@ -59,7 +59,7 @@ export class ProfilePage implements OnInit {
         estabelecimentoID: id
       }
     };
-    this.router.navigate(['gerenciar-estabelecimento'], dados);
+    this.router.navigate(['tabs/gerenciar-estabelecimento'], dados);
 
   }
 

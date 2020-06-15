@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar class="tool-header">
+    <ion-buttons>
+      <ion-button slot="start" (click)="gerenciarEstabelecimento()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-title>Adicionar Produto <br> ou Serviço</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ng-template #titleTemplate>
+  <ion-title>
+    <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+  </ion-title>
+</ng-template>
+
+<ion-content>
+  <ng-container *ngIf="estabelecimentoID; else loading">
+    <div class="container">
+      <form [formGroup]="formGroup" (ngSubmit)="signupUser(); $event.preventDefault()">
+        <ul class="informacoes">
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Nome*</ion-label>
+              <ion-input class="label2" type="text" formControlName="nome"></ion-input>
+            </ion-item>
+            <p class="danger" *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors" margin-left>Valor inválido</p>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Preço*</ion-label>
+              <ion-input class="label2" type="number" formControlName="preco"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Descrição</ion-label>
+              <ion-textarea class="label2" formControlName="descricao"></ion-textarea>
+            </ion-item>
+            <p class="danger" *ngIf="formGroup.controls.descricao.dirty && formGroup.controls.descricao.errors" margin-left>Valor inválido</p>
+          </li>
+        </ul>
+        <ion-button color="success" block type="submit" [disabled]="formGroup.invalid">Salvar</ion-button>
+        <ion-button color="danger" block type="reset" (click)="gerenciarEstabelecimento()">Cancelar</ion-button>
+      </form>
+    </div>
+
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="container">
+      <ul class="informacoes">
+        <li class="label">Nome</li>
+        <li>
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+        <li class="label">Preço</li>
+        <li>
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+        <li class="label">Descrição</li>
+        <li>
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+</ion-content>

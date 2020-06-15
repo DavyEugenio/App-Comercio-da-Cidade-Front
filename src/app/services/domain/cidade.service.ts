@@ -10,8 +10,8 @@ import { API_CONFIG } from 'src/app/config/api.config';
   providedIn: 'root'
 })
 export class CidadeService {
-  constructor(public http: HttpClient) { 
-  	
+  constructor(public http: HttpClient) {
+
   }
   // findAll(): Observable<CidadeDTO[]> {
   //   return this.http.get<CidadeDTO[]>(`${API_CONFIG.baseUrl}/cidades`);
@@ -19,31 +19,31 @@ export class CidadeService {
   findAll(): Array<CidadeDTO> {
     return [
       {
-        id : 1,
-        nome : "Ouricuri"
+        id: "1",
+        nome: "Ouricuri"
       },
       {
-        id : 2,
-        nome : "Bodocó"
+        id: "2",
+        nome: "Bodocó"
       },
       {
-        id : 3,
-        nome : "Trindade"
+        id: "3",
+        nome: "Trindade"
       },
       {
-        id : 4,
-        nome : "Araripina"
+        id: "4",
+        nome: "Araripina"
       }
     ]
   }
 
-  findById(id: string){
+  findById(id: string) {
     return this.http.get(`${API_CONFIG.baseUrl}/cidades/${id}`);
   }
 
-  findPage(page: number = 0, linesPerPage: number = 24) : Observable<CidadeDTO[]>{
+  findPage(page: number = 0, linesPerPage: number = 24): Observable<CidadeDTO[]> {
     return this.http.get<CidadeDTO[]>(`${API_CONFIG.baseUrl}/cidades/page?page=${page}&linesPerPage=${linesPerPage}`);
   }
 
- 
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { EstabelecimentoDTO } from 'src/app/models/estabelecimento.dto';
 import { EstabelecimentoService } from 'src/app/services/domain/estabelecimento.service';
 import { API_CONFIG } from 'src/app/config/api.config';
@@ -13,22 +13,22 @@ import { API_CONFIG } from 'src/app/config/api.config';
 export class GerenciarEstabelecimentoPage implements OnInit {
   estabelecimento: EstabelecimentoDTO;
   edit: boolean = false;
-  
+
   constructor(
-  	private route: ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router,
     private estabelecimentoService: EstabelecimentoService) {
 
-  	this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       let getNav = this.router.getCurrentNavigation();
       if (getNav.extras.state) {
         console.log(getNav.extras.state.estabelecimentoID);
         this.estabelecimentoService.findById(getNav.extras.state.estabelecimentoID)
           .subscribe(
             response => {
-              this.estabelecimento = response; 
-              console.log(this.estabelecimento);  
-              this.getImageOfEstabelecimentoIfExists();       
+              this.estabelecimento = response;
+              console.log(this.estabelecimento);
+              this.getImageOfEstabelecimentoIfExists();
             },
             error => {
             }
@@ -40,11 +40,11 @@ export class GerenciarEstabelecimentoPage implements OnInit {
   ngOnInit() {
   }
 
-  editar(){
+  editar() {
     this.edit = true;
   }
 
-  cancelarEdicao(){
+  cancelarEdicao() {
     this.edit = false;
   }
 
@@ -59,4 +59,12 @@ export class GerenciarEstabelecimentoPage implements OnInit {
       );
   }
 
+  addProdutoServico() {
+    let dados: NavigationExtras = {
+      state: {
+        estabelecimentoID: this.estabelecimento.id
+      }
+    };
+    this.router.navigate(['tabs/add-produto-servico'], dados);
+  }
 }
