@@ -16,8 +16,8 @@
 }
 
 .imagem-produto {
-    width: 100%;
-    height: 30%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
     margin-bottom: 5px;
 }
@@ -50,6 +50,33 @@
     height: inherit;
     color: #8c0043ff;
     font-size: 21px;
+}
+
+.image-content{
+	width: 200px;
+	height: 200px;
+	margin: auto;
+	border-radius: 100px;
+	border-style: none;
+}
+
+.buttons{
+	width: 200px;
+    display: flex;
+	margin: auto;
+}
+
+.midia-button{
+	--background: #fff;
+	--border-style: none;
+	--box-shadow: none; 
+	width: 60px;
+    --color: #000;
+    margin: auto;
+}
+
+.icon-button{
+	font-size: 22px;
 }
 
 /* loadings das informacoes */

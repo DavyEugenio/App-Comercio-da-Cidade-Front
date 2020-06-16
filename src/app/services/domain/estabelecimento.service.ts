@@ -13,7 +13,7 @@ export class EstabelecimentoService {
   constructor(public http: HttpClient,
     public imageUtilService: ImageUtilService) { }
 
-  findAll(): Observable<EstabelecimentoDTO>{
+  findAll(): Observable<EstabelecimentoDTO> {
     return this.http.get<EstabelecimentoDTO>(`${API_CONFIG.baseUrl}/estabelecimentos`);
   }
 
@@ -21,89 +21,86 @@ export class EstabelecimentoService {
     return this.http.get<EstabelecimentoDTO>(`${API_CONFIG.baseUrl}/estabelecimentos/${id}`);
   }
 
-  insert(obj: EstabelecimentoDTO){
+  insert(obj: EstabelecimentoDTO) {
     return this.http.post(
-        `${API_CONFIG.baseUrl}/estabelecimentos`,
-        obj,
-        {
-            observe: 'response',
-            responseType: 'text'
-        }
+      `${API_CONFIG.baseUrl}/estabelecimentos`,
+      obj,
+      {
+        observe: 'response',
+        responseType: 'text'
+      }
     );
   }
 
-  updateAddress(obj: EstabelecimentoDTO, id: string){
-      return this.http.put(
-          `${API_CONFIG.baseUrl}/estabelecimentos/${id}/endereco`,
-          obj,
-          {
-              observe: 'response',
-              responseType: 'text'
-          }
-      );
-  }
-
-  update(obj: EstabelecimentoDTO, id: string){
+  updateAddress(obj: EstabelecimentoDTO, id: string) {
     return this.http.put(
-        `${API_CONFIG.baseUrl}/estabelecimentos/${id}`,
-        obj,
-        {
-            observe: 'response',
-            responseType: 'text'
-        }
+      `${API_CONFIG.baseUrl}/estabelecimentos/${id}/endereco`,
+      obj,
+      {
+        observe: 'response',
+        responseType: 'text'
+      }
     );
-}
+  }
 
-delete(id: string){
-  return this.http.delete(`${API_CONFIG.baseUrl}/estabelecimentos/${id}`);
-}
+  update(obj: EstabelecimentoDTO, id: string) {
+    return this.http.put(
+      `${API_CONFIG.baseUrl}/estabelecimentos/${id}`,
+      obj,
+      {
+        observe: 'response',
+        responseType: 'text'
+      }
+    );
+  }
 
-findByCidade(cidadeID: string): Observable<EstabelecimentoDTO[]> {
+  delete(id: string) {
+    return this.http.delete(`${API_CONFIG.baseUrl}/estabelecimentos/${id}`);
+  }
+
+  findByCidade(cidadeID: string): Observable<EstabelecimentoDTO[]> {
     return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/cidade/${cidadeID}`);
   }
 
-findPageByCidade(cidadeID: string, page: number = 0, linesPerPage: number = 24) : Observable<EstabelecimentoDTO[]>{
-  return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/cidade/${cidadeID}/page?page=${page}&linesPerPage=${linesPerPage}`);
-}
+  findPageByCidade(cidadeID: string, page: number = 0, linesPerPage: number = 24): Observable<EstabelecimentoDTO[]> {
+    return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/cidade/${cidadeID}/page?page=${page}&linesPerPage=${linesPerPage}`);
+  }
 
-findPage(page: number = 0, linesPerPage: number = 24) : Observable<EstabelecimentoDTO[]>{
-  return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimento/page?page=${page}&linesPerPage=${linesPerPage}`);
-}
+  findPage(page: number = 0, linesPerPage: number = 24): Observable<EstabelecimentoDTO[]> {
+    return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimento/page?page=${page}&linesPerPage=${linesPerPage}`);
+  }
 
 
-findByUserOn(id: string): Observable<EstabelecimentoDTO[]> {
-  return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/${id}`);
-}
+  findByUserOn(id: string): Observable<EstabelecimentoDTO[]> {
+    return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/${id}`);
+  }
 
-findByCategoria(cidadeId: string, categoriaId: string){
-  console.log("cidade id: "+cidadeId);
-  console.log("categoria id: "+categoriaId);
-  return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/cidade/${cidadeId}/page?categorias=${categoriaId}`);
-}
+  findByCategoria(cidadeId: string, categoriaId: string) {
+    console.log("cidade id: " + cidadeId);
+    console.log("categoria id: " + categoriaId);
+    return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/cidade/${cidadeId}/page?categorias=${categoriaId}`);
+  }
 
-upLoadPicture(picture, id: string){
-  let picutreBlob = this.imageUtilService.dataUriToBlob(picture);
-  let formDate : FormData = new FormData();
-  formDate.set('file', picutreBlob, 'file.png');
-  return this.http.post(
+  upLoadPicture(picture, id: string) {
+    let picutreBlob = this.imageUtilService.dataUriToBlob(picture);
+    let formDate: FormData = new FormData();
+    formDate.set('file', picutreBlob, 'file.png');
+    return this.http.post(
       `${API_CONFIG.baseUrl}/estabelecimentos/${id}/picture`,
       formDate,
       {
-          observe: 'response',
-          responseType: 'text'
+        observe: 'response',
+        responseType: 'text'
       }
-  );
+    );
   }
 
-  deletePicture(id: string){
-    return this.http.get(`${API_CONFIG.baseUrl}/estabelecimentos/${id}/picture`);
-}
+  deletePicture(id: string) {
+    return this.http.delete(`${API_CONFIG.baseUrl}/estabelecimentos/${id}/picture`);
+  }
 
-getImageFromServer(id: string): Observable<any> {
-  let url = `${API_CONFIG.baseUrl}/imagens/est${id}.jpg`;
-  return this.http.get(url, { responseType: 'blob' });
-}
-
-
-  
+  getImageFromServer(id: string): Observable<any> {
+    let url = `${API_CONFIG.baseUrl}/imagens/est${id}.jpg`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
 }

@@ -8,6 +8,4 @@ export interface UsuarioDTO{
     email: string;
     
     imageUrl?: string;
-    
- 
 }

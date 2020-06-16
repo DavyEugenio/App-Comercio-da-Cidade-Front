@@ -91,7 +91,6 @@ export class ProfilePage implements OnInit {
   getImageOfUsuarioIfExists() {
     this.usuarioService.getImageFromServer(this.usuario.id)
       .subscribe(response => {
-        this.usuario.imageUrl = `${API_CONFIG.baseUrl}/imagens/usp${this.usuario.id}.jpg`;
         this.imageUtils.blobToDataURL(response).then(dataUrl => {
           let str: string = dataUrl as string;
           this.profileImage = this.sanitizer.bypassSecurityTrustUrl(str);

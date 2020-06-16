@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  Plugins, CameraResultType, Capacitor, FilesystemDirectory,
-  CameraPhoto, CameraSource
+  Plugins, CameraResultType, CameraPhoto, CameraSource
 } from '@capacitor/core';
 
 const { Camera } = Plugins;
@@ -15,8 +14,10 @@ export class PhotoService {
   public async getCameraPicture() {
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
-      source: CameraSource.Photos,
+      source: CameraSource.Prompt,
       quality: 100,
+      width: 600,
+      height: 600,
       allowEditing: true,
     });
 

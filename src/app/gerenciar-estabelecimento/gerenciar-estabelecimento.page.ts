@@ -3,6 +3,9 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { EstabelecimentoDTO } from 'src/app/models/estabelecimento.dto';
 import { EstabelecimentoService } from 'src/app/services/domain/estabelecimento.service';
 import { API_CONFIG } from 'src/app/config/api.config';
+import { PhotoService } from '../services/photo.service';
+import { ImageUtilService } from '../services/domain/image-util.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -16,12 +19,15 @@ export class GerenciarEstabelecimentoPage implements OnInit {
   telefone1: string = "";
   telefone2: string = "";
   telefone3: string = "";
+  image;
 
-  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private estabelecimentoService: EstabelecimentoService) {
+    private estabelecimentoService: EstabelecimentoService,
+    public photoService: PhotoService,
+    public imageUtils: ImageUtilService,
+    public sanitizer: DomSanitizer) {
 
     this.route.queryParams.subscribe(params => {
       let getNav = this.router.getCurrentNavigation();
@@ -30,9 +36,9 @@ export class GerenciarEstabelecimentoPage implements OnInit {
         this.estabelecimentoService.findById(getNav.extras.state.estabelecimentoID)
           .subscribe(
             response => {
-              this.estabelecimento = response; 
-              console.log(this.estabelecimento);  
-              this.getImageOfEstabelecimentoIfExists();   
+              this.estabelecimento = response;
+              console.log(this.estabelecimento);
+              this.getImageOfEstabelecimentoIfExists();
               this.setTelefones();
             },
             error => {
@@ -46,17 +52,17 @@ export class GerenciarEstabelecimentoPage implements OnInit {
 
   ngOnInit() {
   }
-  setTelefones(){
+  setTelefones() {
     console.log(this.estabelecimento.telefones.length)
     this.telefone1 = this.estabelecimento.telefones[0];
-    if (this.estabelecimento.telefones.length == 2){
+    if (this.estabelecimento.telefones.length == 2) {
       this.telefone2 = this.estabelecimento.telefones[1];
     }
-    if (this.estabelecimento.telefones.length == 3){
+    if (this.estabelecimento.telefones.length == 3) {
       this.telefone3 = this.estabelecimento.telefones[2];
     }
   }
-  editar(){
+  editar() {
     this.edit = true;
   }
 
@@ -64,13 +70,15 @@ export class GerenciarEstabelecimentoPage implements OnInit {
     this.edit = false;
   }
 
-  getImageOfEstabelecimentoIfExists() {
-    this.estabelecimentoService.getImageFromServer(this.estabelecimento.id)
+
+
+  deletePicture() {
+    this.estabelecimentoService.deletePicture(this.estabelecimento.id)
       .subscribe(response => {
-        this.estabelecimento.imageUrl = `${API_CONFIG.baseUrl}/imagens/est${this.estabelecimento.id}.jpg`;
+        this.image = '/assets/img/imagem.jpg';
       },
         error => {
-          this.estabelecimento.imageUrl = '/assets/img/imagem.jpg';
+          this.getImageOfEstabelecimentoIfExists();
         }
       );
   }
@@ -82,5 +90,34 @@ export class GerenciarEstabelecimentoPage implements OnInit {
       }
     };
     this.router.navigate(['tabs/add-produto-servico'], dados);
+  }
+
+  getImageOfEstabelecimentoIfExists() {
+    this.estabelecimentoService.getImageFromServer(this.estabelecimento.id)
+      .subscribe(response => {
+        this.imageUtils.blobToDataURL(response).then(dataUrl => {
+          let str: string = dataUrl as string;
+          this.image = this.sanitizer.bypassSecurityTrustUrl(str);
+        }
+        );
+      },
+        error => {
+          this.image = '/assets/img/imagem.jpg';
+        }
+      );
+  }
+
+  public async getCameraPicture() {
+    var photo = await this.photoService.getCameraPicture();
+    await this.sendPicture(photo);
+  }
+
+  sendPicture(picture) {
+    this.estabelecimentoService.upLoadPicture(picture, this.estabelecimento.id)
+      .subscribe(response => {
+        this.getImageOfEstabelecimentoIfExists();
+      },
+        error => { }
+      );
   }
 }
