@@ -59,7 +59,7 @@ export class ProfilePage implements OnInit {
         estabelecimentoID: id
       }
     };
-    this.router.navigate(['gerenciar-estabelecimento'], dados);
+    this.router.navigate(['tabs/gerenciar-estabelecimento'], dados);
 
   }
 

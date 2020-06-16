@@ -1,13 +1,12 @@
 <ion-header>
 	<ion-toolbar class="tool-header">
-    <ion-buttons>
-      <ion-button slot="start" href="./tabs/tab1">
-      	<ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-      <ion-title *ngIf="estabelecimento; else titleTemplate">{{ estabelecimento.nome }}</ion-title>
-    </ion-buttons>
-
-  </ion-toolbar>
+		<ion-buttons>
+			<ion-button slot="start" href="tabs/tab1">
+				<ion-icon name="arrow-back"></ion-icon>
+			</ion-button>
+			<ion-title *ngIf="estabelecimento; else titleTemplate">{{ estabelecimento.nome }}</ion-title>
+		</ion-buttons>
+	</ion-toolbar>
 </ion-header>
 
 <ng-template #titleTemplate>
@@ -26,11 +25,11 @@
 			<ul class="informacoes">
 				<li class="label">Funcionamento</li>
 				<li class="label2">
-						<span *ngFor="let dia of estabelecimento.diasDeFuncionamento">{{ dia }},
-						</span>
-						{{ estabelecimento.horario }}
+					<span *ngFor="let dia of estabelecimento.diasDeFuncionamento">{{ dia }},
+					</span>
+					{{ estabelecimento.horario }}
 				</li>
-					
+
 				<li class="label">Endereço</li>
 				<li class="label2">
 					{{ estabelecimento.endereco.cidade.nome }},
@@ -42,34 +41,33 @@
 					numero {{ estabelecimento.endereco.numero }},
 					cep {{ estabelecimento.endereco.cep }}
 				</li>
-
 				<li class="label">Telefones para contato</li>
 				<li class="label2" *ngFor="let tel of estabelecimento.telefones">{{ tel }}</li>
 				<li class="label">Instagram</li>
 				<li class="label2">{{ estabelecimento.instagram }}</li>
 				<li class="label">Facebook</li>
 				<li class="label2">{{ estabelecimento.facebook }}</li>
-				<li class="label" *ngIf="estabelecimento.produtos">Produtos</li>
+				<li class="label" *ngIf="produtoServicos.length!==0">Produtos</li>
 			</ul>
-			<div class="produtos">
-				  <ion-slides [options]="sliderOpts">
-					<ion-slide *ngFor="let categoria of produtoServicos">
-					  <img [src]="categoria?.imageUrl">
+			<div class="produtos" *ngIf="produtoServicos.length!==0">
+				<ion-slides [options]="sliderOpts">
+					<ion-slide *ngFor="let produto of produtoServicos" (click)="detalheProduto(produto.id)">
+						<div class="card">
+							<img [src]="produto?.imageUrl" class="prodImage">
+							<h3 class="label3">{{produto.nome}}</h3>
+						</div>
 					</ion-slide>
-				  </ion-slides>
+				</ion-slides>
+			</div>
 		</div>
 
-		</div>
-		
 	</ng-container>
 
 	<ng-template #loading>
 		<div class="container">
-
 			<div>
 				<img class="imagem-estabelecimento" src="/assets/img/sem_foto.png">
 			</div>
-
 			<ul class="informacoes">
 				<li class="label">Funcionamento</li>
 				<li>
@@ -92,11 +90,8 @@
 				<li>
 					<ion-skeleton-text animated class="loading-medium"></ion-skeleton-text>
 				</li>
-				
+				<li><span class="label">Produtos</span></li>
 			</ul>
-			
 		</div>
 	</ng-template>
-
 </ion-content>
-

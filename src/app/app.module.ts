@@ -19,6 +19,7 @@ import { ImageUtilService } from './services/domain/image-util.service';
 import { ProdutoService } from './services/domain/produtoServico.service';
 import { PhotoService } from './services/photo.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     UsuarioService,
     ImageUtilService,
     ProdutoService,
-    PhotoService
+    PhotoService,
+    FormBuilder
   ],
   bootstrap: [AppComponent]
 })

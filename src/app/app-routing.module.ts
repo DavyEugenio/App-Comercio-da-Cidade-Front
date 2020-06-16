@@ -24,9 +24,22 @@ const routes: Routes = [
     loadChildren: () => import('./gerenciar-estabelecimento/gerenciar-estabelecimento.module').then( m => m.GerenciarEstabelecimentoPageModule)
   },
   {
+    path: 'detalhe-produto-servico',
+    loadChildren: () => import('./detalhe-produto-servico/detalhe-produto-servico.module').then( m => m.DetalheProdutoServicoPageModule)
+  },
+  {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'add-produto-servico',
+    loadChildren: () => import('./add-produto-servico/add-produto-servico.module').then( m => m.AddProdutoServicoPageModule)
+  },
+  {
+    path: 'detalhe-produto-servico',
+    loadChildren: () => import('./detalhe-produto-servico/detalhe-produto-servico.module').then( m => m.DetalheProdutoServicoPageModule)
   }
+
 ];
 @NgModule({
   imports: [

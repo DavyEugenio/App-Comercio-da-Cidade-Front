@@ -25,7 +25,19 @@ const routes: Routes = [
       },
       {
         path: 'detalhe-estabelecimento',
-        loadChildren: () => import('../detalhe-estabelecimento/detalhe-estabelecimento.module').then( m => m.DetalheEstabelecimentoPageModule)
+        loadChildren: () => import('../detalhe-estabelecimento/detalhe-estabelecimento.module').then(m => m.DetalheEstabelecimentoPageModule)
+      },
+      {
+        path: 'detalhe-produto-servico',
+        loadChildren: () => import('../detalhe-produto-servico/detalhe-produto-servico.module').then(m => m.DetalheProdutoServicoPageModule)
+      },
+      {
+        path: 'add-produto-servico',
+        loadChildren: () => import('../add-produto-servico/add-produto-servico.module').then(m => m.AddProdutoServicoPageModule)
+      },
+      {
+        path: 'gerenciar-estabelecimento',
+        loadChildren: () => import('../gerenciar-estabelecimento/gerenciar-estabelecimento.module').then(m => m.GerenciarEstabelecimentoPageModule)
       },
       {
         path: '',
