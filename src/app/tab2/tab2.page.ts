@@ -3,6 +3,7 @@ import { CredenciaisDTO } from 'src/app/models/credenciais.dto';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tab2',
@@ -12,7 +13,19 @@ import { Router } from '@angular/router';
 export class Tab2Page implements OnInit {
   @ViewChild(IonSlides) slides: IonSlides;
   constructor(private router: Router,
-    public auth: AuthService) { }
+    public auth: AuthService,
+    public formBuilder: FormBuilder) { 
+
+      this.formGroup=this.formBuilder.group({
+        nome: ['xxx', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+        cpf: ['aaa', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+        email: ['yyy', [Validators.required, Validators.email]],
+        senha: ['zzz', [Validators.required]]
+      });
+
+    }
+
+    formGroup: FormGroup;
 
   creds: CredenciaisDTO = {
     email: "",
@@ -45,6 +58,10 @@ export class Tab2Page implements OnInit {
         this.auth.successfulLogin(response.headers.get('Authorization'));
         this.router.navigate(['tabs/profile']);
       }, error => { });
+  }
+
+  signupUser(){
+    console.log('Enviou o form');
   }
 
 }
