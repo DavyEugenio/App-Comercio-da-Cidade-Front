@@ -18,7 +18,41 @@
     ion-slides{
         //border-bottom: medium solid rgb(207, 192, 191) ;
         margin-bottom: 8px;
+
     }
+    ion-slide{
+        margin-right: 10px;
+        // background-color: red;
+        width: 50px;
+    }
+}
+ion-grid{
+  --ion-grid-padding: 0px;
+  --ion-grid-column-padding:0px;
+}
+
+
+.categoria-img{
+    max-width: 60px;
+    max-height: 60px;
+}
+
+.image-row{
+    // background-color: blue;
+}
+.label-row{
+   font-size: 1rem;
+}
+
+.categoria-label{
+  position: relative;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.categoria-chip{
+    font-size: medium;
+   
 }
 .titulo2{
     margin-top: 16%;

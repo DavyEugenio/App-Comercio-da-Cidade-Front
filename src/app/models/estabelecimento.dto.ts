@@ -7,8 +7,6 @@ export interface EstabelecimentoDTO {
 	facebook?: string;
 	site?: string;
 	horario: string;
-	telefone1: string;
-	telefone2?: string;
-	telefone3?: string;
+	telefones: string[];
 	imageUrl?: string;
 }

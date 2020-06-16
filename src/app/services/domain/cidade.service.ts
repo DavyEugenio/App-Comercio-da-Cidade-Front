@@ -19,19 +19,19 @@ export class CidadeService {
   findAll(): Array<CidadeDTO> {
     return [
       {
-        id : 1,
+        id : "1",
         nome : "Ouricuri"
       },
       {
-        id : 2,
+        id : "2",
         nome : "Bodocó"
       },
       {
-        id : 3,
+        id : "3",
         nome : "Trindade"
       },
       {
-        id : 4,
+        id : "4",
         nome : "Araripina"
       }
     ]

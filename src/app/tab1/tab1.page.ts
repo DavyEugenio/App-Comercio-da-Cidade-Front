@@ -17,6 +17,7 @@ export class Tab1Page implements OnInit {
   cidade: CidadeDTO;
   categorias: CategoriaDTO[] = [];
   estabelecimentos: EstabelecimentoDTO[] = [];
+  categoria: string = "";
 
   sliderOpts = {
     zoom: false,
@@ -52,17 +53,21 @@ export class Tab1Page implements OnInit {
       response => {
         this.categorias = response;
         this.getImageOfCategoriaIfExists();
+        console.log(this.categorias);
       }
     );
 
+    this.getEstabelecimentos();
+
+  }
+
+  getEstabelecimentos(){
     this.estabelecimentoService.findByCidade(this.cidade.id).subscribe(
       response => {
         this.estabelecimentos = response;
         this.getImageOfEstabelecimentoIfExists();
       }
     );
-
-
   }
 
   detalheEstabelecimento(id: number) {
@@ -105,5 +110,26 @@ export class Tab1Page implements OnInit {
           }
         );
     }
+  }
+  findByCategoria(categoriaObj: CategoriaDTO){
+    this.categoria = categoriaObj.descricao;
+   
+    console.log(categoriaObj.id);
+    this.estabelecimentoService.findByCategoria(this.cidade.id, categoriaObj.id)
+    .subscribe(
+      response=>{
+        console.log(response);
+        this.estabelecimentos = response['content'];
+        this.getImageOfEstabelecimentoIfExists();
+      },
+      error=>{
+        console.log(error);
+      }
+    );
+  }
+
+  clearCategoria(){
+    this.categoria = "";
+    this.getEstabelecimentos();
   }
 }

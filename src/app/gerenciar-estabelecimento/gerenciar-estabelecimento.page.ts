@@ -13,6 +13,10 @@ import { API_CONFIG } from 'src/app/config/api.config';
 export class GerenciarEstabelecimentoPage implements OnInit {
   estabelecimento: EstabelecimentoDTO;
   edit: boolean = false;
+  telefone1: string = "";
+  telefone2: string = "";
+  telefone3: string = "";
+
   
   constructor(
   	private route: ActivatedRoute,
@@ -28,18 +32,30 @@ export class GerenciarEstabelecimentoPage implements OnInit {
             response => {
               this.estabelecimento = response; 
               console.log(this.estabelecimento);  
-              this.getImageOfEstabelecimentoIfExists();       
+              this.getImageOfEstabelecimentoIfExists();   
+              this.setTelefones();
             },
             error => {
             }
           );
       }
     });
+
+
   }
 
   ngOnInit() {
   }
-
+  setTelefones(){
+    console.log(this.estabelecimento.telefones.length)
+    this.telefone1 = this.estabelecimento.telefones[0];
+    if (this.estabelecimento.telefones.length == 2){
+      this.telefone2 = this.estabelecimento.telefones[1];
+    }
+    if (this.estabelecimento.telefones.length == 3){
+      this.telefone3 = this.estabelecimento.telefones[2];
+    }
+  }
   editar(){
     this.edit = true;
   }

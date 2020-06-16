@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
     
     if (localCidade == null) {
       this.cidades = this.cidadeService.findAll();
-      this.cidadeSelecionada = 1;
+      this.cidadeSelecionada = "1";
       console.log(this.cidades);
 
     }

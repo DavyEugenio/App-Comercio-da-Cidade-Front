@@ -75,6 +75,12 @@ findByUserOn(id: string): Observable<EstabelecimentoDTO[]> {
   return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/${id}`);
 }
 
+findByCategoria(cidadeId: string, categoriaId: string){
+  console.log("cidade id: "+cidadeId);
+  console.log("categoria id: "+categoriaId);
+  return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/cidade/${cidadeId}/page?categorias=${categoriaId}`);
+}
+
 upLoadPicture(picture, id: string){
   let picutreBlob = this.imageUtilService.dataUriToBlob(picture);
   let formDate : FormData = new FormData();
