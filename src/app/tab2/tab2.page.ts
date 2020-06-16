@@ -17,10 +17,10 @@ export class Tab2Page implements OnInit {
     public formBuilder: FormBuilder) { 
 
       this.formGroup=this.formBuilder.group({
-        nome: ['xxx', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-        cpf: ['aaa', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-        email: ['yyy', [Validators.required, Validators.email]],
-        senha: ['zzz', [Validators.required]]
+        nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+        cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+        email: ['', [Validators.required, Validators.email]],
+        senha: ['', [Validators.required]]
       });
 
     }
