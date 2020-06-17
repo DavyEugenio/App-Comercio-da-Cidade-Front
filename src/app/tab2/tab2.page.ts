@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { CredenciaisDTO } from 'src/app/models/credenciais.dto';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -14,18 +14,19 @@ export class Tab2Page implements OnInit {
   @ViewChild(IonSlides) slides: IonSlides;
   constructor(private router: Router,
     public auth: AuthService,
-    public formBuilder: FormBuilder) { 
+    public formBuilder: FormBuilder,
+    public alertCtrl: AlertController) {
 
-      this.formGroup=this.formBuilder.group({
-        nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-        cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-        email: ['', [Validators.required, Validators.email]],
-        senha: ['', [Validators.required]]
-      });
+    this.formGroup = this.formBuilder.group({
+      nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+      cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required]]
+    });
 
-    }
+  }
 
-    formGroup: FormGroup;
+  formGroup: FormGroup;
 
   creds: CredenciaisDTO = {
     email: "",
@@ -52,6 +53,29 @@ export class Tab2Page implements OnInit {
       });
   }
 
+  async invalidFieldsAlert() {
+
+    const alert = await this.alertCtrl.create({
+      header: 'Campos inválidos',
+      message: this.listErrors(),
+      backdropDismiss: false,
+      buttons: [{
+        text: 'Ok'
+      }]
+    });
+    await alert.present();
+  }
+
+  private listErrors(): string {
+    let s: string = '';
+    for (const field in this.formGroup.controls) {
+      if (this.formGroup.controls[field].invalid) {
+        s = s + '<p><strong>' + field + ': </strong>Valor inválido</p>';
+      }
+    }
+    return s;
+  }
+
   login() {
     this.auth.authenticate(this.creds)
       .subscribe(response => {
@@ -60,8 +84,12 @@ export class Tab2Page implements OnInit {
       }, error => { });
   }
 
-  signupUser(){
-    console.log('Enviou o form');
+  signupUser() {
+    if (this.formGroup.valid) {
+      console.log('Enviou o form');
+    } else {
+      this.invalidFieldsAlert();
+    }
   }
 
 }
