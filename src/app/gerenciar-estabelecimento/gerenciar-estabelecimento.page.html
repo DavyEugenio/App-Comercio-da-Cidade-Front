@@ -33,8 +33,6 @@
 			<ul class="informacoes">
 				<li class="label">Funcionamento</li>
 				<li class="label2">
-					<span *ngFor="let dia of estabelecimento.diasDeFuncionamento">{{ dia }},
-					</span>
 					{{ estabelecimento.horario }}
 				</li>
 
@@ -43,13 +41,12 @@
 					{{ estabelecimento.endereco.cidade.nome }},
 					{{ estabelecimento.endereco.bairro }}
 					{{ estabelecimento.endereco.logradouro }}
-					<ng-conatiner *ngIf="estabelecimento.endereco.complemento">
+					<span *ngIf="estabelecimento.endereco.complemento">
 						{{ estabelecimento.endereco.complemento }},
-					</ng-conatiner>
+					</span>
 					numero {{ estabelecimento.endereco.numero }},
 					cep {{ estabelecimento.endereco.cep }}
 				</li>
-
 				<li class="label">Telefones para contato</li>
 				<li class="label2" *ngFor="let tel of estabelecimento.telefones">{{ tel }}</li>
 				<li class="label">Site</li>
@@ -58,15 +55,17 @@
 				<li class="label2">{{ estabelecimento.instagram }}</li>
 				<li class="label">Facebook</li>
 				<li class="label2">{{ estabelecimento.facebook }}</li>
-				<li class="label" *ngIf="estabelecimento.produtos">Produtos</li>
+				<li class="label" *ngIf="estabelecimento.produtoServicos.length!==0">Produtos</li>
 			</ul>
-			<div class="produtos">
+			<div class="produtos" *ngIf="estabelecimento.produtoServicos.length!==0">
 				<ion-slides [options]="sliderOpts">
-					<ion-slide *ngFor="let categoria of produtoServicos">
-						<img [src]="categoria?.imageUrl">
+					<ion-slide *ngFor="let produto of estabelecimento.produtoServicos">
+						<div class="card">
+							<img [src]="produto?.imageUrl" class="prodImage">
+							<h3 class="label">{{produto.nome}}</h3>
+						</div>
 					</ion-slide>
 				</ion-slides>
-
 			</div>
 			<ion-button (click)="addProdutoServico()" class="botao-util" color="secondary">
 				Novo Produto ou Serviço
@@ -75,9 +74,7 @@
 			<ion-button class="botao-util" color="primary" (click)="editar()" large>Editar</ion-button>
 			<ion-button class="botao-util" color="danger" lrge>Deletar</ion-button>
 			<br>
-
 		</div>
-
 	</div>
 
 	<!-- div de edição -->
@@ -130,7 +127,7 @@
 				</li>
 			</ul>
 			<br>
-			<ion-button color="secondary" (click)="confirmarEdicao()">Salvar</ion-button>
+			<ion-button color="secondary" >Salvar</ion-button>
 			<ion-button color="danger" (click)="cancelarEdicao()">Cancelar</ion-button>
 		</div>
 

@@ -1,3 +1,6 @@
+import { EnderecoDTO } from './endereco.dto';
+import { ProdutoServicoDTO } from './produtoServico.dto';
+
 export interface EstabelecimentoDTO {
 
 	id: string;
@@ -8,5 +11,7 @@ export interface EstabelecimentoDTO {
 	site?: string;
 	horario: string;
 	telefones: string[];
+	endereco?: EnderecoDTO;
+	produtoServicos?: ProdutoServicoDTO[];
 	imageUrl?: string;
 }

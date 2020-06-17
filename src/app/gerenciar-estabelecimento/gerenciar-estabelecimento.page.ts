@@ -6,6 +6,7 @@ import { API_CONFIG } from 'src/app/config/api.config';
 import { PhotoService } from '../services/photo.service';
 import { ImageUtilService } from '../services/domain/image-util.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ProdutoService } from '../services/domain/produtoServico.service';
 
 
 @Component({
@@ -14,6 +15,12 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./gerenciar-estabelecimento.page.scss'],
 })
 export class GerenciarEstabelecimentoPage implements OnInit {
+  sliderOpts = {
+    zoom: false,
+    slidesPerView: 4,
+    centeredSlides: false,
+    spaceBeetween: 10
+  };
   estabelecimento: EstabelecimentoDTO;
   edit: boolean = false;
   telefone1: string = "";
@@ -27,7 +34,8 @@ export class GerenciarEstabelecimentoPage implements OnInit {
     private estabelecimentoService: EstabelecimentoService,
     public photoService: PhotoService,
     public imageUtils: ImageUtilService,
-    public sanitizer: DomSanitizer) {
+    public sanitizer: DomSanitizer,
+    public produtoServicoService: ProdutoService) {
 
     this.route.queryParams.subscribe(params => {
       let getNav = this.router.getCurrentNavigation();
@@ -39,6 +47,7 @@ export class GerenciarEstabelecimentoPage implements OnInit {
               this.estabelecimento = response;
               console.log(this.estabelecimento);
               this.getImageOfEstabelecimentoIfExists();
+              this.getImageOfProdutoServicoIfExists();
               this.setTelefones();
             },
             error => {
@@ -46,12 +55,11 @@ export class GerenciarEstabelecimentoPage implements OnInit {
           );
       }
     });
-
-
   }
 
   ngOnInit() {
   }
+  
   setTelefones() {
     console.log(this.estabelecimento.telefones.length)
     this.telefone1 = this.estabelecimento.telefones[0];
@@ -69,8 +77,6 @@ export class GerenciarEstabelecimentoPage implements OnInit {
   cancelarEdicao() {
     this.edit = false;
   }
-
-
 
   deletePicture() {
     this.estabelecimentoService.deletePicture(this.estabelecimento.id)
@@ -105,6 +111,20 @@ export class GerenciarEstabelecimentoPage implements OnInit {
           this.image = '/assets/img/imagem.jpg';
         }
       );
+  }
+
+  getImageOfProdutoServicoIfExists() {
+    for (let i = 0; i < this.estabelecimento.produtoServicos.length; i++) {
+      let ps = this.estabelecimento.produtoServicos[i];
+      this.produtoServicoService.getImageFromServer(ps.id)
+        .subscribe(response => {
+          ps.imageUrl = `${API_CONFIG.baseUrl}/imagens/pro${ps.id}.jpg`;
+        },
+          error => {
+            ps.imageUrl = '/assets/img/sem_foto.png';
+          }
+        );
+    }
   }
 
   public async getCameraPicture() {

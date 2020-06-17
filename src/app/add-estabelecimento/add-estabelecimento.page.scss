@@ -1,0 +1,100 @@
+.tool-header {
+    --background: #a6ce39ff;
+    ion-button {
+        color: white;
+    }
+    ion-title {
+        color: white;
+        font-size: 28px;
+    }
+}
+.container {
+    padding-top: 10px;
+    margin-left: 13%;
+    width: 74%;
+    height: 100%;
+}
+
+.imagem-estabelecimento {
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.produto-nome {
+    font-size: 30px;
+    color: #8c0043ff;
+}
+
+// informações
+.informacoes {
+    width: 100%;
+    height: auto;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.label {
+    width: 100%;
+    height: inherit;
+    background-color: white;
+    color: black;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.label2 {
+    width: 100%;
+    height: inherit;
+    color: #8c0043ff;
+    font-size: 21px;
+}
+
+.image-content{
+	width: 200px;
+	height: 200px;
+	margin: auto;
+	border-radius: 100px;
+	border-style: none;
+}
+
+.buttons{
+	width: 200px;
+    display: flex;
+	margin: auto;
+}
+
+.midia-button{
+	--background: #fff;
+	--border-style: none;
+	--box-shadow: none; 
+	width: 60px;
+    --color: #000;
+    margin: auto;
+}
+
+.icon-button{
+	font-size: 22px;
+}
+
+/* loadings das informacoes */
+
+.loading {
+    border-radius: 10px;
+    height: 30px;
+}
+
+.loading-large {
+    @extend .loading;
+    width: 80%;
+}
+.loading-medium {
+    @extend .loading;
+    width: 60%;
+}
+.loading-small {
+    @extend .loading;
+    width: 48%;
+}

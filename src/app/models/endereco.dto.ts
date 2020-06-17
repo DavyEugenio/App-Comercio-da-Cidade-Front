@@ -1,3 +1,5 @@
+import { CidadeDTO } from './cidade.dto';
+
 export interface EnderecoDTO{
     
     id : string;
@@ -6,5 +8,5 @@ export interface EnderecoDTO{
     complemento : string;
     bairro : string;
     cep : string;
-    cidadeId: string;
+    cidade?: CidadeDTO;
 }

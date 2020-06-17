@@ -31,7 +31,6 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
-
     let us = this.storage.getLocalUser();
     if (us && us.email) {
       this.usuarioService.findByEmail(us.email)
@@ -49,7 +48,6 @@ export class ProfilePage implements OnInit {
     } else {
       this.router.navigate(['tabs/tab2']);
     }
-
   }
 
   gerenciarEstabelecimento(id: number) {
@@ -85,7 +83,6 @@ export class ProfilePage implements OnInit {
 
   sair() {
     this.auth.logout();
-    this.router.navigate(['tabs/tab2']);
   }
 
   getImageOfUsuarioIfExists() {
@@ -118,4 +115,7 @@ export class ProfilePage implements OnInit {
       );
   }
 
+  addEstabelecimento() {
+    this.router.navigate(['tabs/add-estabelecimento']);
+  }
 }

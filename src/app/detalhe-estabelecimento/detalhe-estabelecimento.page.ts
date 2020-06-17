@@ -1,5 +1,4 @@
 import { ProdutoService } from 'src/app/services/domain/produtoServico.service';
-import { ProdutoServicoDTO } from 'src/app/models/produtoServico.dto';
 import { API_CONFIG } from 'src/app/config/api.config';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
@@ -13,7 +12,6 @@ import { EstabelecimentoDTO } from 'src/app/models/estabelecimento.dto';
 })
 export class DetalheEstabelecimentoPage implements OnInit {
   estabelecimento: EstabelecimentoDTO;
-  produtoServicos: ProdutoServicoDTO[] = [];
   sliderOpts = {
     zoom: false,
     slidesPerView: 4,
@@ -35,27 +33,17 @@ export class DetalheEstabelecimentoPage implements OnInit {
           .subscribe(
             response => {
               this.estabelecimento = response;
-              this.findProdutoServicos(this.estabelecimento.id);
               this.getImageOfEstabelecimentoIfExists();
+              this.getImageOfProdutoServicoIfExists();
             },
             error => {
             }
           );
       }
     });
-
   }
 
   ngOnInit() {
-  }
-
-  findProdutoServicos(id: string) {
-    this.produtoServicoService.findByEstablishment(this.estabelecimento.id)
-      .subscribe(response => {
-        this.produtoServicos = response;
-        this.getImageOfProdutoServicoIfExists();
-      }
-      );
   }
 
   getImageOfEstabelecimentoIfExists() {
@@ -70,8 +58,8 @@ export class DetalheEstabelecimentoPage implements OnInit {
   }
 
   getImageOfProdutoServicoIfExists() {
-    for (let i = 0; i < this.produtoServicos.length; i++) {
-      let ps = this.produtoServicos[i];
+    for (let i = 0; i < this.estabelecimento.produtoServicos.length; i++) {
+      let ps = this.estabelecimento.produtoServicos[i];
       this.produtoServicoService.getImageFromServer(ps.id)
         .subscribe(response => {
           ps.imageUrl = `${API_CONFIG.baseUrl}/imagens/pro${ps.id}.jpg`;
@@ -80,7 +68,6 @@ export class DetalheEstabelecimentoPage implements OnInit {
             ps.imageUrl = '/assets/img/sem_foto.png';
           }
         );
-
     }
   }
 

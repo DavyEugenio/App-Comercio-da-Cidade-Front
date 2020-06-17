@@ -4,7 +4,6 @@ import { CidadeService } from 'src/app/services/domain/cidade.service';
 import { CidadeDTO } from 'src/app/models/cidade.dto';
 import { StorageService } from 'src/app/services/storage.service';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -17,22 +16,17 @@ export class HomePage implements OnInit {
   constructor(private router: Router,
     private cidadeService: CidadeService,
     private storage: StorageService) {
-
-  }
-
-  ngOnInit() {
     let localCidade = this.storage.getLocalCidade();
-    
     if (localCidade == null) {
       this.cidades = this.cidadeService.findAll();
       this.cidadeSelecionada = "1";
       console.log(this.cidades);
-
+    } else {
+      this.router.navigate(['./tabs/tab1']);
     }
-    else {
-      this.router.navigate(['./tabs']);
-    }
+  }
 
+  ngOnInit() {
   }
 
   setCidade() {
@@ -41,10 +35,7 @@ export class HomePage implements OnInit {
         cidade: this.findCidade(this.cidadeSelecionada)
       }
     };
-
-    
-    console.log(this.findCidade(this.cidadeSelecionada));
-    this.router.navigate(['./tabs'], dados);
+    this.router.navigate(['./tabs/tab1'], dados);
   }
 
   findCidade(id: string) {
@@ -52,9 +43,6 @@ export class HomePage implements OnInit {
       if (this.cidades[i]['id'] == id) {
         return this.cidades[i];
       }
-
     }
-
   }
-
 }

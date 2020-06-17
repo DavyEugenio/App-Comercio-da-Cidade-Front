@@ -40,6 +40,10 @@ const routes: Routes = [
         loadChildren: () => import('../gerenciar-estabelecimento/gerenciar-estabelecimento.module').then(m => m.GerenciarEstabelecimentoPageModule)
       },
       {
+        path: 'add-estabelecimento',
+        loadChildren: () => import('../add-estabelecimento/add-estabelecimento.module').then( m => m.AddEstabelecimentoPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

@@ -76,8 +76,6 @@ export class EstabelecimentoService {
   }
 
   findByCategoria(cidadeId: string, categoriaId: string) {
-    console.log("cidade id: " + cidadeId);
-    console.log("categoria id: " + categoriaId);
     return this.http.get<EstabelecimentoDTO[]>(`${API_CONFIG.baseUrl}/estabelecimentos/cidade/${cidadeId}/page?categorias=${categoriaId}`);
   }
 

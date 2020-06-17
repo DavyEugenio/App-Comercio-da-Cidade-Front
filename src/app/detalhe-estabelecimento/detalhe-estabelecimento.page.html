@@ -25,8 +25,6 @@
 			<ul class="informacoes">
 				<li class="label">Funcionamento</li>
 				<li class="label2">
-					<span *ngFor="let dia of estabelecimento.diasDeFuncionamento">{{ dia }},
-					</span>
 					{{ estabelecimento.horario }}
 				</li>
 
@@ -35,23 +33,23 @@
 					{{ estabelecimento.endereco.cidade.nome }},
 					{{ estabelecimento.endereco.bairro }}
 					{{ estabelecimento.endereco.logradouro }}
-					<ng-conatiner *ngIf="estabelecimento.endereco.complemento">
+					<span *ngIf="estabelecimento.endereco.complemento">
 						{{ estabelecimento.endereco.complemento }},
-					</ng-conatiner>
+					</span>
 					numero {{ estabelecimento.endereco.numero }},
 					cep {{ estabelecimento.endereco.cep }}
 				</li>
 				<li class="label">Telefones para contato</li>
 				<li class="label2" *ngFor="let tel of estabelecimento.telefones">{{ tel }}</li>
-				<li class="label">Instagram</li>
-				<li class="label2">{{ estabelecimento.instagram }}</li>
-				<li class="label">Facebook</li>
-				<li class="label2">{{ estabelecimento.facebook }}</li>
-				<li class="label" *ngIf="produtoServicos.length!==0">Produtos</li>
+				<li class="label" *ngIf="estabelecimento.instagram">Instagram</li>
+				<li class="label2" *ngIf="estabelecimento.instagram">{{ estabelecimento.instagram }}</li>
+				<li class="label" *ngIf="estabelecimento.facebook">Facebook</li>
+				<li class="label2" *ngIf="estabelecimento.facebook">{{ estabelecimento.facebook }}</li>
+				<li class="label" *ngIf="estabelecimento.produtoServicos.length!==0">Produtos</li>
 			</ul>
-			<div class="produtos" *ngIf="produtoServicos.length!==0">
+			<div class="produtos" *ngIf="estabelecimento.produtoServicos.length!==0">
 				<ion-slides [options]="sliderOpts">
-					<ion-slide *ngFor="let produto of produtoServicos" (click)="detalheProduto(produto.id)">
+					<ion-slide class="produto" *ngFor="let produto of estabelecimento.produtoServicos" (click)="detalheProduto(produto.id)">
 						<div class="card">
 							<img [src]="produto?.imageUrl" class="prodImage">
 							<h3 class="label3">{{produto.nome}}</h3>

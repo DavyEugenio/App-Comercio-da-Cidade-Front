@@ -8,8 +8,9 @@
       </ion-tab-button>
 
       <ion-tab-button tab="tab2">
-        <ion-icon name="person-add-sharp"></ion-icon>
-        <ion-label *ngIf="logado == false">Login & cadastro</ion-label>
+        <ion-icon *ngIf="!logado" name="person-add-sharp"></ion-icon>
+        <ion-label *ngIf="!logado">Login & cadastro</ion-label>
+        <ion-icon *ngIf="logado" name="person-sharp"></ion-icon>
         <ion-label *ngIf="logado">Perfil</ion-label>
       </ion-tab-button>
 

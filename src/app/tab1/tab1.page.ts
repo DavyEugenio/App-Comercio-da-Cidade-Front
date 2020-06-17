@@ -23,10 +23,11 @@ export class Tab1Page implements OnInit {
     zoom: false,
     slidesPerView: 4,
     centeredSlides: false,
-    spaceBeetween: 10
+    spaceBeetween: 5
   };
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private categoriaService: CategoriaService,
     private estabelecimentoService: EstabelecimentoService,
@@ -56,12 +57,10 @@ export class Tab1Page implements OnInit {
         console.log(this.categorias);
       }
     );
-
     this.getEstabelecimentos();
-
   }
 
-  getEstabelecimentos(){
+  getEstabelecimentos() {
     this.estabelecimentoService.findByCidade(this.cidade.id).subscribe(
       response => {
         this.estabelecimentos = response;
@@ -111,24 +110,25 @@ export class Tab1Page implements OnInit {
         );
     }
   }
-  findByCategoria(categoriaObj: CategoriaDTO){
+
+  findByCategoria(categoriaObj: CategoriaDTO) {
     this.categoria = categoriaObj.descricao;
-   
+
     console.log(categoriaObj.id);
     this.estabelecimentoService.findByCategoria(this.cidade.id, categoriaObj.id)
-    .subscribe(
-      response=>{
-        console.log(response);
-        this.estabelecimentos = response['content'];
-        this.getImageOfEstabelecimentoIfExists();
-      },
-      error=>{
-        console.log(error);
-      }
-    );
+      .subscribe(
+        response => {
+          console.log(response);
+          this.estabelecimentos = response['content'];
+          this.getImageOfEstabelecimentoIfExists();
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
-  clearCategoria(){
+  clearCategoria() {
     this.categoria = "";
     this.getEstabelecimentos();
   }

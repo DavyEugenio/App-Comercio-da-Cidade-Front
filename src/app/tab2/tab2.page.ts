@@ -57,7 +57,6 @@ export class Tab2Page implements OnInit {
   }
 
   async invalidFieldsAlert() {
-
     const alert = await this.alertCtrl.create({
       header: 'Campos inválidos',
       message: this.listErrors(),
@@ -67,7 +66,7 @@ export class Tab2Page implements OnInit {
       }]
     });
     await alert.present();
-  } 
+  }
 
   private listErrors(): string {
     let s: string = '';
@@ -77,32 +76,29 @@ export class Tab2Page implements OnInit {
       }
     }
     return s;
-  } 
+  }
 
   login() {
     this.auth.authenticate(this.creds)
       .subscribe(response => {
         this.auth.successfulLogin(response.headers.get('Authorization'));
         this.router.navigate(['tabs/profile']);
-        
       }, error => { });
   }
 
   signupUser() {
     if (this.formGroup.valid) {
-      //console.log(this.formGroup.value);
       this.UsuarioService.insert(this.formGroup.value)
-      .subscribe(response => {
-        this.showInsertOk();
-        
-      },
-      error =>{});
+        .subscribe(response => {
+          this.showInsertOk();
+        },
+          error => { });
     } else {
       this.invalidFieldsAlert();
     }
   }
-  
-  async showInsertOk(){
+
+  async showInsertOk() {
     const alert = await this.alertCtrl.create({
       header: 'Sucesso!',
       message: 'Usuario cadastrado',

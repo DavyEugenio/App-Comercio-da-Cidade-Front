@@ -1,0 +1,164 @@
+<ion-header>
+  <ion-toolbar class="tool-header">
+    <ion-buttons>
+      <ion-button slot="start" (click)="profile()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-title>Adicionar<br>Estabelecimento</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ng-template #titleTemplate>
+  <ion-title>
+    <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+  </ion-title>
+</ng-template>
+
+<ion-content>
+  <ng-container *ngIf="usuario; else loading">
+    <div class="container">
+      <div class="image-content">
+        <img class="imagem-estabelecimento" [src]="image" alt="">
+      </div>
+      <div class="buttons">
+        <ion-button class="midia-button mg-l" (click)="getCameraPicture()">
+          <ion-icon class="icon-button font-s" name="camera"></ion-icon>
+        </ion-button>
+        <ion-button class="midia-button" *ngIf="photo != null" (click)="removeImage()">
+          <ion-icon class="icon-button" name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+      <form [formGroup]="formGroup" (ngSubmit)="addEstabelecimento(); $event.preventDefault()">
+        <ul class="informacoes">
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Nome*</ion-label>
+              <ion-input class="label2" type="text" formControlName="nome"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">CNPJ</ion-label>
+              <ion-input class="label2" type="text" formControlName="cnpj"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Instagram</ion-label>
+              <ion-input class="label2" type="text" formControlName="instagram"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Facebook</ion-label>
+              <ion-input class="label2" type="text" formControlName="facebook"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Site</ion-label>
+              <ion-input class="label2" type="text" formControlName="site"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">*Horário de funcionamento</ion-label>
+              <ion-textarea class="label2" type="text" formControlName="horario"></ion-textarea>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label>*Categorias</ion-label>
+              <ion-select multiple="true" formControlName="categorias" placeholder="Escolha no máximo 2">
+                <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                  {{categoria.descricao}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">*Logradouro</ion-label>
+              <ion-input class="label2" formControlName="logradouro"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">*Número</ion-label>
+              <ion-input class="label2" formControlName="numero"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">*Complemento</ion-label>
+              <ion-input class="label2" formControlName="complemento"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">*Bairro</ion-label>
+              <ion-input class="label2" formControlName="bairro"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">*CEP</ion-label>
+              <ion-input class="label2" formControlName="cep"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label>*Cidade</ion-label>
+              <ion-select formControlName="cidadeId">
+                <ion-select-option *ngFor="let cidade of cidades" value="{{cidade.id}}">
+                  {{cidade.nome}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">*Telefone 1</ion-label>
+              <ion-input class="label2" formControlName="telefone1"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Telefone 2</ion-label>
+              <ion-input class="label2" formControlName="telefone2"></ion-input>
+            </ion-item>
+          </li>
+          <li>
+            <ion-item>
+              <ion-label class="label" position="floating">Telefone 3</ion-label>
+              <ion-input class="label2" formControlName="telefone3"></ion-input>
+            </ion-item>
+          </li>
+        </ul>
+        <ion-button color="success" block type="submit">Salvar</ion-button>
+        <ion-button color="danger" block type="reset" (click)="cancelar()">Cancelar</ion-button>
+      </form>
+    </div>
+
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="container">
+      <ul class="informacoes">
+        <li class="label">Nome</li>
+        <li>
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+        <li class="label">Preço</li>
+        <li>
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+        <li class="label">Descrição</li>
+        <li>
+          <ion-skeleton-text animated class="loading-large"></ion-skeleton-text>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+</ion-content>

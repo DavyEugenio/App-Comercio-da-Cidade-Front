@@ -16,13 +16,11 @@
 .categorias{
     margin-top: 24%;
     ion-slides{
-        //border-bottom: medium solid rgb(207, 192, 191) ;
         margin-bottom: 8px;
 
     }
     ion-slide{
         margin-right: 10px;
-        // background-color: red;
         width: 50px;
     }
 }
@@ -37,9 +35,6 @@ ion-grid{
     max-height: 60px;
 }
 
-.image-row{
-    // background-color: blue;
-}
 .label-row{
    font-size: 1rem;
 }

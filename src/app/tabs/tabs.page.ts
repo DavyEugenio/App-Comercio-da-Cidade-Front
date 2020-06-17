@@ -7,7 +7,6 @@ import { StorageService } from '../services/storage.service';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
   logado: boolean = false;
   constructor(public storage: StorageService) {
     let us = this.storage.getLocalUser();
