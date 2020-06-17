@@ -1,3 +1,5 @@
+import { UsuarioService } from './../services/domain/usuario.service';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { CredenciaisDTO } from 'src/app/models/credenciais.dto';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -15,7 +17,8 @@ export class Tab2Page implements OnInit {
   constructor(private router: Router,
     public auth: AuthService,
     public formBuilder: FormBuilder,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public UsuarioService: UsuarioService) {
 
     this.formGroup = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -64,7 +67,7 @@ export class Tab2Page implements OnInit {
       }]
     });
     await alert.present();
-  }
+  } 
 
   private listErrors(): string {
     let s: string = '';
@@ -74,22 +77,41 @@ export class Tab2Page implements OnInit {
       }
     }
     return s;
-  }
+  } 
 
   login() {
     this.auth.authenticate(this.creds)
       .subscribe(response => {
         this.auth.successfulLogin(response.headers.get('Authorization'));
         this.router.navigate(['tabs/profile']);
+        
       }, error => { });
   }
 
   signupUser() {
     if (this.formGroup.valid) {
-      console.log('Enviou o form');
+      //console.log(this.formGroup.value);
+      this.UsuarioService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+        
+      },
+      error =>{});
     } else {
       this.invalidFieldsAlert();
     }
+  }
+  
+  async showInsertOk(){
+    const alert = await this.alertCtrl.create({
+      header: 'Sucesso!',
+      message: 'Usuario cadastrado',
+      backdropDismiss: false,
+      buttons: [{
+        text: 'Ok'
+      }]
+    });
+    await alert.present();
   }
 
 }
