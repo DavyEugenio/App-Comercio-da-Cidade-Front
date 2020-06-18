@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { EnderecoDTO } from 'src/app/models/endereco.dto';
 import { EstabelecimentoDTO } from 'src/app/models/estabelecimento.dto';
 import { API_CONFIG } from 'src/app/config/api.config';
 import { ImageUtilService } from './image-util.service';
@@ -32,7 +33,7 @@ export class EstabelecimentoService {
     );
   }
 
-  updateAddress(obj: EstabelecimentoDTO, id: string) {
+  updateAddress(obj: EnderecoDTO, id: string) {
     return this.http.put(
       `${API_CONFIG.baseUrl}/estabelecimentos/${id}/endereco`,
       obj,

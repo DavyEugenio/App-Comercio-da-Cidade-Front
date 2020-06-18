@@ -1,13 +1,13 @@
 <ion-header>
 	<ion-toolbar class="tool-header">
-		<ion-buttons>
-			<ion-button slot="start" href="tabs/profile">
-				<ion-icon name="arrow-back"></ion-icon>
-			</ion-button>
-			<ion-title *ngIf="estabelecimento; else titleTemplate">{{ estabelecimento.nome }}</ion-title>
-		</ion-buttons>
+    <ion-buttons>
+      <ion-button slot="start" href="tabs/profile">
+      	<ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-title *ngIf="estabelecimento; else titleTemplate">{{ estabelecimento.nome }}</ion-title>
+    </ion-buttons>
 
-	</ion-toolbar>
+  </ion-toolbar>
 </ion-header>
 
 <ng-template #titleTemplate>
@@ -17,36 +17,32 @@
 </ng-template>
 
 <ion-content>
-	<div *ngIf="estabelecimento && !edit">
+	<div *ngIf="estabelecimento && !edit && !editEndereco">
 		<div class="container">
 			<div>
-				<img class="imagem-estabelecimento" [src]="image">
+				<img class="imagem-estabelecimento" [src]="estabelecimento?.imageUrl">
 			</div>
-			<div class="image-buttons">
-				<ion-button class="midia-button" (click)="deletePicture()" *ngIf="image != '/assets/img/imagem.jpg'">
-					<ion-icon class="icon-button font-s" name="trash-outline"></ion-icon>
-				</ion-button>
-				<ion-button class="midia-button mg-l" (click)="getCameraPicture()">
-					<ion-icon class="icon-button font-s" name="camera"></ion-icon>
-				</ion-button>
-			</div>
+			
 			<ul class="informacoes">
 				<li class="label">Funcionamento</li>
 				<li class="label2">
-					{{ estabelecimento.horario }}
+						<span *ngFor="let dia of estabelecimento.diasDeFuncionamento">{{ dia }},
+						</span>
+						{{ estabelecimento.horario }}
 				</li>
-
+					
 				<li class="label">Endereço</li>
 				<li class="label2">
 					{{ estabelecimento.endereco.cidade.nome }},
 					{{ estabelecimento.endereco.bairro }}
 					{{ estabelecimento.endereco.logradouro }}
-					<span *ngIf="estabelecimento.endereco.complemento">
+					<ng-conatiner *ngIf="estabelecimento.endereco.complemento">
 						{{ estabelecimento.endereco.complemento }},
-					</span>
+					</ng-conatiner>
 					numero {{ estabelecimento.endereco.numero }},
 					cep {{ estabelecimento.endereco.cep }}
 				</li>
+
 				<li class="label">Telefones para contato</li>
 				<li class="label2" *ngFor="let tel of estabelecimento.telefones">{{ tel }}</li>
 				<li class="label">Site</li>
@@ -55,63 +51,77 @@
 				<li class="label2">{{ estabelecimento.instagram }}</li>
 				<li class="label">Facebook</li>
 				<li class="label2">{{ estabelecimento.facebook }}</li>
-				<li class="label" *ngIf="estabelecimento.produtoServicos.length!==0">Produtos</li>
+				<li class="label" *ngIf="estabelecimento.produtoServicos">Produtos</li>
 			</ul>
-			<div class="produtos" *ngIf="estabelecimento.produtoServicos.length!==0">
-				<ion-slides [options]="sliderOpts">
-					<ion-slide *ngFor="let produto of estabelecimento.produtoServicos">
-						<div class="card">
-							<img [src]="produto?.imageUrl" class="prodImage">
-							<h3 class="label">{{produto.nome}}</h3>
-						</div>
+			<div class="produtos">
+				  <ion-slides [options]="sliderOpts">
+					<ion-slide *ngFor="let prodServ of estabelecimento.produtoServicos">
+					  <img [src]="prodServ?.imageUrl">
 					</ion-slide>
-				</ion-slides>
+				  </ion-slides>
+				  
 			</div>
 			<ion-button (click)="addProdutoServico()" class="botao-util" color="secondary">
 				Novo Produto ou Serviço
 				<ion-icon slot="end" name="add"></ion-icon>
 			</ion-button>
-			<ion-button class="botao-util" color="primary" (click)="editar()" large>Editar</ion-button>
+			<ion-button class="botao-util" color="primary" (click)="editarEstabelecimento()" large>Editar</ion-button>
 			<ion-button class="botao-util" color="danger" lrge>Deletar</ion-button>
 			<br>
+		
 		</div>
+		
 	</div>
 
 	<!-- div de edição -->
 	<div *ngIf="estabelecimento && edit">
 		<div class="container">
 			<div>
-				<img class="imagem-estabelecimento" [src]="image">
+				<img class="imagem-estabelecimento" [src]="estabelecimento?.imageUrl">
 			</div>
-
+		
 			<div class="image-buttons">
-				<ion-button class="midia-button" (click)="deletePicture()" *ngIf="image != '/assets/img/imagem.jpg'">
-					<ion-icon class="icon-button font-s" name="trash-outline"></ion-icon>
-				</ion-button>
-				<ion-button class="midia-button mg-l" (click)="getCameraPicture()">
-					<ion-icon class="icon-button font-s" name="camera"></ion-icon>
-				</ion-button>
-			</div>
-			<ul class="informacoes">
-				<li class="label">Nome</li>
-				<li class="label2">
-					<ion-input [(ngModel)]="estabelecimento.nome" inputmode="text" autofocus></ion-input>
-				</li>
+        
+        <ion-button class="midia-button">
+          <ion-icon class="icon-button font-s" name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="midia-button mg-l" (click)="getCameraPicture()">
+          <ion-icon class="icon-button font-s" name="camera"></ion-icon>
+        </ion-button>
+      </div>
+      <ul class="informacoes">
+      	<li class="label">Nome</li>
+      	<li class="label2">
+      		<ion-input [(ngModel)]="estabelecimento.nome" inputmode="text" autofocus></ion-input>
+      	</li>
 				<li class="label">Funcionamento</li>
 				<li class="label2">
 					<ion-input [(ngModel)]="estabelecimento.horario" inputmode="text" autofocus></ion-input>
 				</li>
-
 				<li class="label">Endereço</li>
-				<li class="label">Telefones</li>
+				<li class="label2">
+					<ion-button class="editarEndereco" (click)="editarEndereco(estabelecimento.endereco)" large>Atualizar endereço</ion-button>
+				</li>
+
+				<li class="label sparator">Telefones</li>
 				<li>
-					Tel 1:<ion-input class="label2" [(ngModel)]="telefone1" inputmode="text"></ion-input>
+					<ion-item>
+					  <ion-label position="fixed">TEL 1:</ion-label>
+					  <ion-input class="label2" [(ngModel)]="telefone1"></ion-input>
+					</ion-item>
+					
 				</li>
 				<li>
-					Tel 2:<ion-input class="label2" [(ngModel)]="telefone2" inputmode="text"></ion-input>
+					<ion-item>
+					  <ion-label position="fixed">TEL 2:</ion-label>
+					  <ion-input class="label2" [(ngModel)]="telefone2"></ion-input>
+					</ion-item>
 				</li>
 				<li>
-					Tel 3:<ion-input class="label2" [(ngModel)]="telefone3" inputmode="text"></ion-input>
+					<ion-item>
+					  <ion-label position="fixed">TEL 3:</ion-label>
+					  <ion-input class="label2" [(ngModel)]="telefone3"></ion-input>
+					</ion-item>
 				</li>
 				<li class="label">Site</li>
 				<li class="label2">
@@ -127,10 +137,51 @@
 				</li>
 			</ul>
 			<br>
-			<ion-button color="secondary" >Salvar</ion-button>
-			<ion-button color="danger" (click)="cancelarEdicao()">Cancelar</ion-button>
+			<ion-button color="secondary" (click)="confirmarEdicaoEstabelecimento()">Salvar</ion-button>
+      <ion-button color="danger" (click)="cancelarEdicaoEstabelecimento()">Cancelar</ion-button>
 		</div>
 
+	</div>
+	<div *ngIf="editEndereco">
+		<div class="container">
+			<h3>Endereço</h3>
+			<ion-label class="label">Cidade</ion-label>   
+	      <ion-select expand="block"  [(ngModel)]="cidadeSelecionada" value="cidadeSelecionada" okText="Confirmar" cancelText="Cancelar">
+	        <ion-select-option *ngFor="let cidade of cidades" [value]="cidade.id">{{ cidade.nome }}</ion-select-option>
+	      </ion-select>
+			
+			<ion-item>
+				<ion-label>Bairro </ion-label>
+				<ion-input class="label2" [(ngModel)]="endereco.bairro"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label>Logradouro </ion-label>
+				<ion-input class="label2" [(ngModel)]="endereco.logradouro"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label>Complemento </ion-label>
+				<ion-textarea class="label2" [(ngModel)]="endereco.complemento"></ion-textarea>
+			</ion-item>
+
+			<ion-item>
+				<ion-label>Numero </ion-label>
+				<ion-input class="label2" [(ngModel)]="endereco.numero"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label>CEP </ion-label>
+				<ion-input class="label2" [(ngModel)]="endereco.cep"></ion-input>
+			</ion-item>
+
+			<ion-button color="secondary" (click)="confirmarEdicaoEndereco()">Salvar</ion-button>
+     		 <ion-button color="danger" (click)="cancelarEdicaoEndereco()">Cancelar</ion-button>
+
+			
+			
+		</div>
+		
 	</div>
 
 	<div *ngIf="!estabelecimento">
@@ -173,3 +224,4 @@
 	</div>
 
 </ion-content>
+
