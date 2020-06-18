@@ -18,9 +18,9 @@ export class GerenciarEstabelecimentoPage implements OnInit {
   estabelecimento: EstabelecimentoDTO;
   edit: boolean = false;
   editEndereco: boolean = false;
-  telefone1: string = "";
-  telefone2: string = "";
-  telefone3: string = "";
+  telefone1: string = " ";
+  telefone2: string = " ";
+  telefone3: string = " ";
 
   // edicao do endereco
   endereco: EnderecoDTO;
@@ -63,10 +63,10 @@ export class GerenciarEstabelecimentoPage implements OnInit {
   setTelefones() {
     let telefones = [];
     telefones.push(this.telefone1);
-    if (!this.telefone2 == ""){
+    if (this.telefone2 !== " "){
       telefones.push(this.telefone2);
     }
-    if (!this.telefone3 == ""){
+    if (this.telefone3 !== " "){
       telefones.push(this.telefone3);
     }
     this.estabelecimento.telefones = telefones;

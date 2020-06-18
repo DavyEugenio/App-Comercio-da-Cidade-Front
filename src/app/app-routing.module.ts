@@ -41,6 +41,10 @@ const routes: Routes = [
   },  {
     path: 'add-estabelecimento',
     loadChildren: () => import('./add-estabelecimento/add-estabelecimento.module').then( m => m.AddEstabelecimentoPageModule)
+  },
+  {
+    path: 'alterar-senha',
+    loadChildren: () => import('./alterar-senha/alterar-senha.module').then( m => m.AlterarSenhaPageModule)
   }
 
 ];
