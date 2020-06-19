@@ -132,4 +132,13 @@ export class Tab1Page implements OnInit {
     this.categoria = "";
     this.getEstabelecimentos();
   }
+
+  loadData(event) {
+    setTimeout(() => {
+      console.log('Done');
+      event.target.complete();
+
+      
+    }, 500);
+  }
 }
