@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path: 'alterar-senha',
     loadChildren: () => import('./alterar-senha/alterar-senha.module').then( m => m.AlterarSenhaPageModule)
+  },
+  {
+    path: 'recuperar-senha',
+    loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then( m => m.RecuperarSenhaPageModule)
   }
 
 ];

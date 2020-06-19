@@ -1,6 +1,7 @@
 import { StorageService } from './storage.service';
 import { HttpClient } from '@angular/common/http';
 import { CredenciaisDTO } from './../models/credenciais.dto';
+import { EmailDTO } from './../models/email.dto';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api.config';
 import { LocalUser } from '../models/local_user';
@@ -44,5 +45,14 @@ export class AuthService{
 
     logout(){
         this.storage.setLocalUser(null);
+    }
+
+    recuperarSenha(obj: EmailDTO) {
+        return this.http.post(`${API_CONFIG.baseUrl}/auth/forgot`,
+        obj,
+        {
+            observe: 'response',
+            responseType: 'text'
+        });
     }
 }

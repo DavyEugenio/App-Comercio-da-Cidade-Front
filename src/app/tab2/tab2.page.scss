@@ -29,7 +29,7 @@ ion-slides{
         margin-left: 10px;
         margin-right: 10px;  
     }
-    &.altura1{height: 40%; }
+    &.altura1{height: 44%; }
     &.altura2{height: 60%; }    
 }
 .rodape{
@@ -47,4 +47,10 @@ ion-slides{
 .danger{
     color: red;
     font-size: x-small;
+}
+
+
+.recuperar-senha{
+    margin-top: 16%;
+    text-decoration: none;
 }
